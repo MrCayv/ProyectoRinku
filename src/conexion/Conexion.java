@@ -23,7 +23,7 @@ public class Conexion {
 	private void conectar() {
 		if(dataSource == null) {
 			dataSource = new BasicDataSource();
-			dataSource.setDriverClassName("com.mysql.jc.jdbc.Driver");
+			dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
 			dataSource.setUsername("root");
 			dataSource.setPassword("root1234");
 			dataSource.setUrl("jdbc:mysql://localhost:3306/rinku");

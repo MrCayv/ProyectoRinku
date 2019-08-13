@@ -6,23 +6,23 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import model.DBConexion;
-import model.Usuario;
+import model.Trabajador;
 
-public class UsuarioDAO {	
-	public static boolean guardar(Usuario usuario) {
+public class TrabajadorDAO {	
+	public static boolean guardar(Trabajador trabajador) {
 		DBConexion con = new DBConexion();
 		PreparedStatement stmt;
 
 		String sql = 
-				  "INSERT INTO usuarios(usuario, password, nombre, usu_creador, creado, usu_modificador, modificado, status) "
+				  "INSERT INTO trabajadores(nombre, rol, tipo, usu_creador, creado, usu_modificador, modificado, status) "
 				+ "VALUES (?, ?, ?, ?, NOW(), NULL, NOW(), 1)";
 		try {
 			stmt = con.getConnection().prepareStatement(sql);
 
-			stmt.setString(1, usuario.getUsuario());
-			stmt.setString(2, usuario.getPassword());
-			stmt.setString(3, usuario.getNombre());
-			stmt.setInt(4, usuario.getUsu_creador());
+			stmt.setString(1, trabajador.getNombre());
+			stmt.setInt(2, trabajador.getRol());
+			stmt.setInt(3, trabajador.getTipo());
+			stmt.setInt(4, trabajador.getUsu_creador());
 
 			stmt.executeUpdate();
 		} catch (SQLException e) {
@@ -34,24 +34,26 @@ public class UsuarioDAO {
 		return true;
 	}
 
-	public static boolean editar(Usuario usuario) {
+	public static boolean editar(Trabajador trabajador) {
 		DBConexion con = new DBConexion();
 		PreparedStatement stmt;
 
 		String sql = 
-				    "UPDATE usuarios SET "
-				  + "    usuario = ?, "
+				    "UPDATE trabajadores SET "
 				  + "    nombre = ?, "
+				  + "    rol = ?, "
+				  + "    tipo = ?, "
 				  + "    usu_modificador = ?, "
 				  + "    modificado = NOW() "
 				  + "WHERE id = ?";
 		try {
 			stmt = con.getConnection().prepareStatement(sql);
 
-			stmt.setString(1, usuario.getUsuario());
-			stmt.setString(2, usuario.getNombre());
-			stmt.setInt(3, usuario.getUsu_modificador());
-			stmt.setInt(4, usuario.getId());
+			stmt.setString(1, trabajador.getNombre());
+			stmt.setInt(2, trabajador.getRol());
+			stmt.setInt(3, trabajador.getTipo());
+			stmt.setInt(4, trabajador.getUsu_modificador());
+			stmt.setInt(5, trabajador.getId());
 
 			stmt.executeUpdate();
 		} catch (SQLException e) {
@@ -68,7 +70,7 @@ public class UsuarioDAO {
 		PreparedStatement stmt;
 
 		String sql = 
-			    "UPDATE usuarios SET "
+			    "UPDATE trabajadores SET "
 			  + "    status = 0, "
 			  + "    usu_modificador = ?, "
 			  + "    modificado = NOW() "
@@ -89,18 +91,18 @@ public class UsuarioDAO {
 		return true;
 	}
 
-	public static Usuario buscar(int id) {
+	public static Trabajador buscar(int id) {
 		String sql = 
 				  "SELECT * "
-                + "FROM usuarios "
+                + "FROM trabajadores "
                 + "WHERE id = " + id;
 		return registro(sql);
 	}
 
-	public static ArrayList<Usuario> consultar() {
+	public static ArrayList<Trabajador> consultar() {
 		String sql = 
 				  "SELECT * "
-                + "FROM usuarios "
+                + "FROM trabajadores "
                 + "WHERE status = 1";
 
 		return consulta(sql);
@@ -108,8 +110,8 @@ public class UsuarioDAO {
 
 //==========================================================================================================================
 
-	public static Usuario registro(String sql) {
-		Usuario registro = null;
+	public static Trabajador registro(String sql) {
+		Trabajador registro = null;
 		DBConexion con = new DBConexion();
         try {
         	PreparedStatement stmt = con.getConnection().prepareStatement(sql);
@@ -124,8 +126,8 @@ public class UsuarioDAO {
         return registro;
     }
 
-	public static ArrayList<Usuario> consulta(String sql) {
-        ArrayList<Usuario> lista = new ArrayList<Usuario>();
+	public static ArrayList<Trabajador> consulta(String sql) {
+        ArrayList<Trabajador> lista = new ArrayList<Trabajador>();
         DBConexion con = new DBConexion();
         try {
         	PreparedStatement stmt = con.getConnection().prepareStatement(sql);
@@ -140,12 +142,13 @@ public class UsuarioDAO {
         return lista;
     }
 
-	public static Usuario getRegistro(ResultSet rs) throws SQLException {
-		Usuario registro = new Usuario();
+	public static Trabajador getRegistro(ResultSet rs) throws SQLException {
+		Trabajador registro = new Trabajador();
 
         registro.setId(rs.getInt("id"));
-        registro.setUsuario(rs.getString("usuario"));
         registro.setNombre(rs.getString("nombre"));
+        registro.setRol(rs.getInt("rol"));
+        registro.setTipo(rs.getInt("tipo"));
         registro.setUsu_creador(rs.getInt("usu_creador"));
         registro.setCreado(rs.getTimestamp("creado"));
         registro.setUsu_modificador(rs.getInt("usu_modificador"));

@@ -13,6 +13,8 @@ public class Trabajador {
 	private Timestamp modificado;
 	private int status;
 	
+	public Trabajador() {}
+	
 	public Trabajador(String nombre, int rol, int tipo, int usu_creador, int usu_modificador, int status) {
 		super();
 		this.nombre = nombre;

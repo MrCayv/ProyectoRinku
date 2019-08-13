@@ -52,9 +52,14 @@
 			                    <td><c:out value="${user.usuario}" /></td>
 			                    <td><c:out value="${user.password}" /></td>
 			                    <td>
-			                        <a href="/edit?id=<c:out value='${user.id}' />">Editar</a>
-			                        &nbsp;&nbsp;&nbsp;&nbsp;
-			                        <a href="/delete?id=<c:out value='${user.id}' />">Eliminar</a>                     
+			                    	<div class="row">
+				                    	<form action="ServletUsuario?opcion=edit&id=<c:out value='${user.id}'/>" method="post">
+				                    		<button type="submit" class="btn btn-warning">Editar</button>
+				                    	</form>
+				                    	<form action="ServletUsuario?opcion=delete&id=<c:out value='${user.id}'/>" method="post">
+				                    		<button type="submit" class="btn btn-danger">Eliminar</button>
+				                    	</form> 
+			                    	</div>
 			                    </td>
 			                </tr>
 			            </c:forEach>

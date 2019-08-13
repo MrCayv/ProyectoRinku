@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="ISO-8859-1">
-	<title>Nuevo Usuario</title>
+	<title>Editar Usuario</title>
 	<link rel="stylesheet" href="./resources/css/bootstrap.min.css">
 </head>
 <body>
@@ -19,29 +20,26 @@
 	    <a class="nav-link" href="#">Trabajadores</a>
 	  </li>
 	  <li class="nav-item">
-	    <a class="nav-link" href="#">Salir</a>
+	    <a class="nav-link" href="ServletLogin">Salir</a>
 	  </li>
 	</ul>
 	
-	<h1 align="center">Nuevo Usuarios</h1>
+	<h1 align="center">Editar usuario '<c:out value='${usuario.nombre}' />'</h1>
     <hr>
     
     <div class="container">
-    	<form action="ServletUsuario?opcion=insert" method="post">
+    	<form action="ServletUsuario?opcion=update" method="post">
+    		<input type="hidden" name="id" value="<c:out value='${usuario.id}' />" />
 		  	<div class="form-group">
 			    <label>Nombre</label>
-			    <input type="text" class="form-control" name="nombre" placeholder="Introducir nombre">
+			    <input type="text" class="form-control" name="nombre" value="<c:out value='${usuario.nombre}'/>" placeholder="Introducir nombre">
 		  	</div>
 		  	<div class="form-group">
 			    <label>Usuario</label>
-			    <input type="text" class="form-control" name="usuario" placeholder="Introducir usuario">
-		  	</div>
-		  	<div class="form-group">
-			    <label>Contraseña</label>
-			    <input type="password" class="form-control" name="password" placeholder="Introducir contraseña">
+			    <input type="text" class="form-control" name="usuario" value="<c:out value='${usuario.usuario}'/>" placeholder="Introducir usuario">
 		  	</div>
 		  	
-		  	<button type="submit" class="btn btn-primary">Guardar</button>
+		  	<button type="submit" class="btn btn-primary">Editar</button>
 		</form>
     </div>
 

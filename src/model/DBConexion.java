@@ -1,4 +1,4 @@
-package conexion;
+package model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,14 +6,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class Conexion {
+public class DBConexion {
 	private Connection con = null;
     private ResultSet rs = null;
     private PreparedStatement stmt = null;
     private Statement s = null;
     private String url;
 	
-	public Conexion() {
+	public DBConexion() {
 		conectar();
 	}
 	

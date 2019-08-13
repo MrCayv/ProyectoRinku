@@ -18,13 +18,13 @@ import model.Usuario;
  * Servlet implementation class ServletUsuario
  */
 @WebServlet("/ServletUsuario")
-public class ServletUsuario extends HttpServlet {
+public class ServletTrabajador extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ServletUsuario() {
+    public ServletTrabajador() {
         super();
     }
 

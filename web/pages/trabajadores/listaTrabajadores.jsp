@@ -5,7 +5,7 @@
 <html>
 <head>
 	<meta charset="ISO-8859-1">
-	<title>Lista de usuarios</title>
+	<title>Lista de Trabajadores</title>
 	<link rel="stylesheet" href="./resources/css/bootstrap.min.css">
 </head>
 <body>
@@ -24,13 +24,13 @@
 	  </li>
 	</ul>
 	
-	<h1 align="center">Administración de usuarios</h1>
+	<h1 align="center">Administración de Trabajadores</h1>
     <hr>
     
     <div class="container" >
 		<div class="form-group">
 	    	<div class="row">  
-	    		<form action="ServletUsuario?opcion=new" method="post"><button type="submit" class="btn btn-primary">Nuevo</button></form>
+	    		<form action="ServletTrabajador?opcion=new" method="post"><button type="submit" class="btn btn-primary">Nuevo</button></form>
 	    	</div>
 	    	<div class="mt-3"></div>
 	    	<div class="row">  
@@ -39,24 +39,24 @@
 			            <tr>
 			                <th scope="col">#</th>
 			                <th scope="col">Nombre</th>
-			                <th scope="col">Usuario</th>
-			                <th scope="col">Contraseña</th>
+			                <th scope="col">Rol</th>
+			                <th scope="col">Tipo</th>
 			                <th scope="col">Opciones</th>
 			            </tr>
 		            </thead>
 		            <tbody>
-			            <c:forEach var="user" items="${listaUsuarios}">
+			            <c:forEach var="trabajador" items="${listaTrabajadores}">
 			                <tr>
-			                    <th scope="row"><c:out value="${user.id}" /></td>
-			                    <td><c:out value="${user.nombre}" /></td>
-			                    <td><c:out value="${user.usuario}" /></td>
-			                    <td><c:out value="${user.password}" /></td>
+			                    <th scope="row"><c:out value="${trabajador.id}" /></td>
+			                    <td><c:out value="${trabajador.nombre}" /></td>
+			                    <td><c:out value="${trabajador.rol}" /></td>
+			                    <td><c:out value="${trabajador.tipo}" /></td>
 			                    <td>
 			                    	<div class="row">
-				                    	<form action="ServletUsuario?opcion=edit&id=<c:out value='${user.id}'/>" method="post">
+				                    	<form action="ServletTrabajador?opcion=edit&id=<c:out value='${user.id}'/>" method="post">
 				                    		<button type="submit" class="btn btn-warning">Editar</button>
 				                    	</form>
-				                    	<form action="ServletUsuario?opcion=delete&id=<c:out value='${user.id}'/>" method="post">
+				                    	<form action="ServletTrabajador?opcion=delete&id=<c:out value='${user.id}'/>" method="post">
 				                    		<button type="submit" class="btn btn-danger">Eliminar</button>
 				                    	</form> 
 			                    	</div>

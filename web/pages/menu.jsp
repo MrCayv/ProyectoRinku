@@ -16,10 +16,10 @@
 	    <a class="nav-link" href="ServletUsuario">Usuarios</a>
 	  </li>
 	  <li class="nav-item">
-	    <a class="nav-link" href="#">Trabajadores</a>
+	    <a class="nav-link" href="ServletTrabajador">Trabajadores</a>
 	  </li>
 	  <li class="nav-item">
-	    <a class="nav-link" href="#">Salir</a>
+	    <a class="nav-link" href="ServletLogin">Salir</a>
 	  </li>
 	</ul>
 

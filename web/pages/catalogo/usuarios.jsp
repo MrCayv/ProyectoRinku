@@ -13,7 +13,7 @@
 	<h:form>
 		<h:panelGrid columns="3">
 			<h:commandButton id="nuevo" value="Nuevo"/>
-			<h:commandButton id="guardar" value="Guardar" action="#{usuariosBean.nuevo}"/>
+			<h:commandButton id="guardar" value="Guardar" action=""/>
 			<h:commandButton id="buscar" value="Buscar" />
 		</h:panelGrid>
 		<h:panelGrid border="1" columns="2">

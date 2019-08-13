@@ -19,8 +19,8 @@ public class Conexion {
 	
 	public void conectar(){
         try{
-            Class.forName("com.mysql.jdbc.Driver");
-            url = "jdbc:mysql://localhost:3306/rinku";
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            url = "jdbc:mysql://localhost:3306/rinku?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false";
             con = DriverManager.getConnection(url, "root", "root1234");
             s = con.createStatement();
         } catch(Exception e) {

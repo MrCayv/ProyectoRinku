@@ -2,15 +2,36 @@ package model;
 
 import java.sql.Timestamp;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+@Entity
+@Table(name="usuarios")
 public class Usuario {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	@Column
 	private String usuario;
+	@Column
 	private String password;
+	@Column
 	private String nombre;
+	@Column
 	private int usu_creador;
+	@Temporal(TemporalType.TIMESTAMP)
 	private Timestamp creado;
+	@Column
 	private int usu_modificador;
+	@Temporal(TemporalType.TIMESTAMP)
 	private Timestamp modificado;
+	@Column
 	private int status;
 	
 	public Usuario() {}

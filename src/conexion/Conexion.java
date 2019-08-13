@@ -1,57 +1,58 @@
 package conexion;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 
-import javax.sql.DataSource;
-import javax.swing.JOptionPane;
-
-import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
-
 public class Conexion {
-	private BasicDataSource dataSource = null;
 	private Connection con = null;
-	private Statement stmt = null;
-	private ResultSet rs = null;
+    private ResultSet rs = null;
+    private PreparedStatement stmt = null;
+    private Statement s = null;
+    private String url;
 	
 	public Conexion() {
 		conectar();
 	}
 	
-	private void conectar() {
-		if(dataSource == null) {
-			dataSource = new BasicDataSource();
-			dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-			dataSource.setUsername("root");
-			dataSource.setPassword("root1234");
-			dataSource.setUrl("jdbc:mysql://localhost:3306/rinku");
-			dataSource.setInitialSize(20);
-			dataSource.setMaxIdle(15);
-			dataSource.setMaxTotal(20);
-			dataSource.setMaxWaitMillis(5000);
-			
-			try {
-				con = dataSource.getConnection();
-				stmt = con.createStatement();
-			} catch (SQLException e) {
-				System.out.println("Error en conexión a la base de datos");
-			}
-		}
-	}
-	
-	public Connection getConnection(){
-        return con;
+	public void conectar(){
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            url = "jdbc:mysql://localhost:3306/rinku";
+            con = DriverManager.getConnection(url, "root", "root1234");
+            s = con.createStatement();
+        } catch(Exception e) {
+        	System.out.println("no se pudo conectar a la base de datos");
+            System.out.println(e);
+        }
+        
     }
 	
-	public void closeConnection() {
+	public ResultSet executeQuery(String sql) throws Exception{
+        stmt = con.prepareStatement(sql);
+        rs = stmt.executeQuery();
+        return rs;
+    }
+    
+    public void executeUpdate(String sql) throws Exception{
+        s.executeUpdate(sql);
+    }
+    
+    public Connection getConnection(){
+        return con;
+    }
+    
+    public void cerrar() {
         try {
             con.close();
             con = null;
+            rs = null;
+            s = null;
             stmt = null;
         } catch (Exception e) {
-        	System.out.println("Error al cerrar la conexion de la base de datos");
+        	System.out.println("No se pudo cerrar la conexion de la base de datos");
         }
     }
 }

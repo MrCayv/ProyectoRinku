@@ -58,7 +58,6 @@ public class UsuarioController extends HttpServlet {
 				-1,
 				1
 		);
-		UsuarioDAO.guardar(usuario);
 	}
 
 }

@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pageflow:Pageflow xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf15656488910630" configfile="/ProyectoRinku/web/WEB-INF/faces-config.xml"/>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf15656488910630" configfile="/ProyectoRinku/web/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="pages/menu" id="pf15656789126021" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf15656789126022 pf15656813650114" path="/pages/menu.jsp"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/catalogo/trabajadores" id="pf15656789126033" referenceLink="//@navigationRule.0/@navigationCase.1/@toViewId|" inlinks="pf15656789126022" path="/pages/catalogo/trabajadores.jsp"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/catalogo/usuarios" id="pf15656813650115" referenceLink="//@navigationRule.0/@navigationCase.1/@toViewId|" inlinks="pf15656813650114" path="/pages/catalogo/usuarios.jsp"/>
+  <links id="pf15656789126022" target="pf15656789126033" source="pf15656789126021" outcome="trabajadores" redirect="true"/>
+  <links id="pf15656813650114" target="pf15656813650115" source="pf15656789126021" outcome="usuarios" redirect="true"/>
+</pageflow:Pageflow>

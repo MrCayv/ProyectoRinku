@@ -49,14 +49,16 @@ public class ServletLogin extends HttpServlet {
 		sesion.setAttribute("empresa", "Rinku");
 		
 		if(!usuario.equals("") && !pass.equals("") && !usuario.equals("joel")) {
+			request.getRequestDispatcher("./pages/menu.jsf").forward(request, response);
+			
 			// Recuperar el escritor
-			PrintWriter escritor = response.getWriter();
+			/*PrintWriter escritor = response.getWriter();
 			
 			// Generar el contenido dinamico 
 			escritor.println("<html><body><h3>Bienvenidos</h3>" +
 					"<br> Sistema Rinku</body></html>");
 			
-			escritor.close();
+			escritor.close();*/
 			sesion.setAttribute("usuario", "cesar");
 		} else if(usuario.equals("joel")) {
 			response.sendRedirect("ServletError?codigoError=105");

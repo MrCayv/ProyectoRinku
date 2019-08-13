@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.UsuarioDAO;
-import model.Usuario;
+import dao.TrabajadorDAO;
+import model.Trabajador;
 
 /**
  * Servlet implementation class ServletUsuario
  */
-@WebServlet("/ServletUsuario")
+@WebServlet("/ServletTrabajador")
 public class ServletTrabajador extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -59,7 +59,7 @@ public class ServletTrabajador extends HttpServlet {
                 actualizar(request, response);
                 break;
             default:
-                listaUsuarios(request, response);
+            	listaTrabajadores(request, response);
                 break;
             }
         } catch (SQLException ex) {
@@ -67,59 +67,59 @@ public class ServletTrabajador extends HttpServlet {
         }
 	}
 	
-	private void listaUsuarios(HttpServletRequest request, HttpServletResponse response)
+	private void listaTrabajadores(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
-        List<Usuario> listUsuario = UsuarioDAO.consultar();
-        request.setAttribute("listaUsuarios", listUsuario);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/usuarios/listaUsuarios.jsp");
+        List<Trabajador> listTrabajador = TrabajadorDAO.consultar();
+        request.setAttribute("listaTrabajadores", listTrabajador);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/trabajadores/listaTrabajadores.jsp");
         dispatcher.forward(request, response);
     }
  
     private void nuevo(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/usuarios/nuevoUsuario.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/trabajadores/nuevoTrabajador.jsp");
         dispatcher.forward(request, response);
     }
  
     private void editar(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        Usuario usuario = UsuarioDAO.buscar(id);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/usuarios/editarUsuario.jsp");
-        request.setAttribute("usuario", usuario);
+        Trabajador trabajador = TrabajadorDAO.buscar(id);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/trabajadores/editarTrabajador.jsp");
+        request.setAttribute("trabajador", trabajador);
         dispatcher.forward(request, response);
- 
     }
  
     private void insertar(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
         String nombre = request.getParameter("nombre");
-        String usuario = request.getParameter("usuario");
-        String password = request.getParameter("password");
+        int rol = Integer.parseInt(request.getParameter("rol"));
+        int tipo = Integer.parseInt(request.getParameter("tipo"));
  
-        Usuario u = new Usuario(usuario, password, nombre, 1, -1, 1);
-        UsuarioDAO.guardar(u);
-        response.sendRedirect("./ServletUsuario");
+        Trabajador t = new Trabajador(nombre, rol, tipo, 1, -1, 1);
+        TrabajadorDAO.guardar(t);
+        response.sendRedirect("./ServletTrabajador");
     }
  
     private void actualizar(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
     	int id = Integer.parseInt(request.getParameter("id"));
     	String nombre = request.getParameter("nombre");
-        String usuario = request.getParameter("usuario");
+        int rol = Integer.parseInt(request.getParameter("rol"));
+        int tipo = Integer.parseInt(request.getParameter("tipo"));
  
-        Usuario u = new Usuario(usuario, "", nombre, -1, 1, 1);
-        u.setId(id);
-        UsuarioDAO.editar(u);
-        response.sendRedirect("./ServletUsuario");
+        Trabajador t = new Trabajador(nombre, rol, tipo, -1, 1, 1);
+        t.setId(id);
+        TrabajadorDAO.editar(t);
+        response.sendRedirect("./ServletTrabajador");
     }
  
     private void eliminar(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
  
-        UsuarioDAO.eliminar(id, 1);
-        response.sendRedirect("./ServletUsuario");
+        TrabajadorDAO.eliminar(id, 1);
+        response.sendRedirect("./ServletTrabajador");
  
     }
 

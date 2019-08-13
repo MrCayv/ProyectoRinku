@@ -42,6 +42,10 @@ public class ServletLogin extends HttpServlet {
 		// Recuperación de los valores
 		String usuario = request.getParameter("usuario");
 		String pass = request.getParameter("pass");
+		if(usuario == null || pass == null) {
+			response.sendRedirect("ServletError?codigoError=103");
+			return;
+		}
 		
 		// Setear un parametro en session
 		// Recuperar el objeto HttpSession
@@ -49,7 +53,7 @@ public class ServletLogin extends HttpServlet {
 		sesion.setAttribute("empresa", "Rinku");
 		
 		if(!usuario.equals("") && !pass.equals("") && !usuario.equals("joel")) {
-			request.getRequestDispatcher("./pages/menu.jsf").forward(request, response);
+			request.getRequestDispatcher("./pages/menu.jsp").forward(request, response);
 			
 			// Recuperar el escritor
 			/*PrintWriter escritor = response.getWriter();

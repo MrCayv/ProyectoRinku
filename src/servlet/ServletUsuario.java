@@ -32,95 +32,93 @@ public class ServletUsuario extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String action = request.getServletPath();
-		
-        try {
-            switch (action) {
-            case "/new":
-                showNewForm(request, response);
-                break;
-            case "/insert":
-                insertBook(request, response);
-                break;
-            case "/delete":
-                deleteBook(request, response);
-                break;
-            case "/edit":
-                showEditForm(request, response);
-                break;
-            case "/update":
-                updateBook(request, response);
-                break;
-            default:
-                listBook(request, response);
-                break;
-            }
-        } catch (SQLException ex) {
-            throw new ServletException(ex);
-        }
+		doPost(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		String action = request.getParameter("opcion");
+		if(action == null) action="";
+        try {
+            switch (action) {
+            case "new":
+                nuevo(request, response);
+                break;
+            case "insert":
+                insertar(request, response);
+                break;
+            case "delete":
+                eliminar(request, response);
+                break;
+            case "edit":
+                editar(request, response);
+                break;
+            case "update":
+                actualizar(request, response);
+                break;
+            default:
+                listaUsuarios(request, response);
+                break;
+            }
+        } catch (SQLException ex) {
+            throw new ServletException(ex);
+        }
 	}
 	
-	private void listBook(HttpServletRequest request, HttpServletResponse response)
+	private void listaUsuarios(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
         List<Usuario> listUsuario = UsuarioDAO.consultar();
         request.setAttribute("listaUsuarios", listUsuario);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/listaUsuarios.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/usuarios/listaUsuarios.jsp");
         dispatcher.forward(request, response);
     }
  
-    private void showNewForm(HttpServletRequest request, HttpServletResponse response)
+    private void nuevo(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("BookForm.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/usuarios/nuevoUsuario.jsp");
         dispatcher.forward(request, response);
     }
  
-    private void showEditForm(HttpServletRequest request, HttpServletResponse response)
+    private void editar(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        /*Book existingBook = bookDAO.getBook(id);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("BookForm.jsp");
-        request.setAttribute("book", existingBook);
-        dispatcher.forward(request, response);*/
+        Usuario usuario = UsuarioDAO.buscar(id);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/usuarios/usuarios.jsp");
+        request.setAttribute("usuario", usuario);
+        dispatcher.forward(request, response);
  
     }
  
-    private void insertBook(HttpServletRequest request, HttpServletResponse response)
+    private void insertar(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
-        /*String title = request.getParameter("title");
-        String author = request.getParameter("author");
-        float price = Float.parseFloat(request.getParameter("price"));
+        String nombre = request.getParameter("nombre");
+        String usuario = request.getParameter("usuario");
+        String password = request.getParameter("password");
  
-        Book newBook = new Book(title, author, price);
-        bookDAO.insertBook(newBook);
-        response.sendRedirect("list");*/
+        Usuario u = new Usuario(usuario, password, nombre, 1, -1, 1);
+        UsuarioDAO.guardar(u);
+        response.sendRedirect("./ServletUsuario");
     }
  
-    private void updateBook(HttpServletRequest request, HttpServletResponse response)
+    private void actualizar(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
-        /*int id = Integer.parseInt(request.getParameter("id"));
-        String title = request.getParameter("title");
-        String author = request.getParameter("author");
-        float price = Float.parseFloat(request.getParameter("price"));
+    	String nombre = request.getParameter("nombre");
+        String usuario = request.getParameter("usuario");
+        String password = request.getParameter("password");
  
-        Book book = new Book(id, title, author, price);
-        bookDAO.updateBook(book);
-        response.sendRedirect("list");*/
+        Usuario u = new Usuario(usuario, password, nombre, -1, 1, 1);
+        UsuarioDAO.editar(u);
+        response.sendRedirect("./ServletUsuario");
     }
  
-    private void deleteBook(HttpServletRequest request, HttpServletResponse response)
+    private void eliminar(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
-        /*int id = Integer.parseInt(request.getParameter("id"));
+        int id = Integer.parseInt(request.getParameter("id"));
  
-        Book book = new Book(id);
-        bookDAO.deleteBook(book);
-        response.sendRedirect("list");*/
+        UsuarioDAO.eliminar(id, 1);
+        response.sendRedirect("./ServletUsuario");
  
     }
 

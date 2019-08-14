@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import model.DBConexion;
 import model.Movimiento;
+import utilidades.Fechas;
 
 public class MovimientoDAO {	
 	public static boolean guardar(Movimiento movimiento) {
@@ -114,6 +115,33 @@ public class MovimientoDAO {
                 + "WHERE M.status = 1 "
                 + "ORDER BY M.fecha DESC";
 
+		return consulta(sql);
+	}
+	
+	public static ArrayList<Movimiento> consultar(int mes, int year) {
+		String sql = 
+				  "SELECT M.*, T.nombre AS trabajador "
+                + "FROM movimientos M " 
+                + "    INNER JOIN trabajadores AS T " 
+                + "    ON M.id_empleado = T.id "
+                + "WHERE M.status = 1 "
+                + "    AND M.fecha BETWEEN '" + Fechas.getPrimerDiaMes(mes, year) + "' AND '" + Fechas.getUltimoDiaMes(mes, year) + "' "
+                + "ORDER BY M.fecha DESC";
+
+		return consulta(sql);
+	}
+	
+	public static ArrayList<Movimiento> consultar(int id_empleado, int mes, int year) {
+		String sql = 
+				  "SELECT M.*, T.nombre AS trabajador "
+                + "FROM movimientos M " 
+                + "    INNER JOIN trabajadores AS T " 
+                + "    ON M.id_empleado = T.id "
+                + "WHERE M.status = 1 "
+                + "    AND id_empleado = " + id_empleado + " "
+                + "    AND M.fecha BETWEEN '" + Fechas.getPrimerDiaMes(mes, year) + "' AND '" + Fechas.getUltimoDiaMes(mes, year) + "' "
+                + "ORDER BY M.fecha DESC";
+		
 		return consulta(sql);
 	}
 

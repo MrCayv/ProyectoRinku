@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -11,7 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.MovimientoDAO;
 import dao.TrabajadorDAO;
+import model.Movimiento;
 import model.Trabajador;
 
 /**
@@ -123,7 +126,18 @@ public class ServletTrabajador extends HttpServlet {
  
         TrabajadorDAO.eliminar(id, 1);
         response.sendRedirect("./ServletTrabajador");
- 
+    }
+    
+    private void ver(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Trabajador trabajador = TrabajadorDAO.buscar(id);
+        Date fecha = new Date();
+        List<Movimiento> listaMovimientos = MovimientoDAO.consultar(trabajador.getId(), fecha.getMonth()+1, fecha.getYear()+1900);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/trabajadores/verTrabajador.jsp");
+        request.setAttribute("trabajador", trabajador);
+        request.setAttribute("listaMovimientos", listaMovimientos);
+        dispatcher.forward(request, response);
     }
 
 }

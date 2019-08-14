@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.TimeZone;
 
 public class DBConexion {
 	private Connection con = null;
@@ -20,7 +21,7 @@ public class DBConexion {
 	public void conectar(){
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            url = "jdbc:mysql://localhost:3306/rinku?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false";
+            url = "jdbc:mysql://localhost:3306/rinku?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=" + TimeZone.getDefault().getID() + "&useSSL=false";
             con = DriverManager.getConnection(url, "root", "root1234");
             s = con.createStatement();
         } catch(Exception e) {

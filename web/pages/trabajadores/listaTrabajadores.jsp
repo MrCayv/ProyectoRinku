@@ -53,16 +53,20 @@
 			                    <td><c:out value="${trabajador.tipoString}" /></td>
 			                    <td>
 			                    	<div class="row float-right">
-			                    		<form action="ServletTrabajador?opcion=show&id=<c:out value='${trabajador.id}'/>" method="post">
+			                    		<form action="ServletTrabajador?opcion=show" method="post">
+			                    			<input type="hidden" name="id" value="<c:out value='${trabajador.id}' />" />
 				                    		<button type="submit" class="btn btn-primary">Ver</button>
 				                    	</form> 
-			                    		<form action="ServletMovimiento?opcion=new&id=<c:out value='${trabajador.id}'/>" method="post">
+			                    		<form action="ServletMovimiento?opcion=new" method="post">
+			                    			<input type="hidden" name="id" value="<c:out value='${trabajador.id}' />" />
 				                    		<button type="submit" class="btn btn-success">Movimiento</button>
 				                    	</form> 
-				                    	<form action="ServletTrabajador?opcion=edit&id=<c:out value='${trabajador.id}'/>" method="post">
+				                    	<form action="ServletTrabajador?opcion=edit" method="post">
+				                    		<input type="hidden" name="id" value="<c:out value='${trabajador.id}' />" />
 				                    		<button type="submit" class="btn btn-warning">Editar</button>
 				                    	</form>
-				                    	<form action="ServletTrabajador?opcion=delete&id=<c:out value='${trabajador.id}'/>" method="post">
+				                    	<form action="ServletTrabajador?opcion=delete" method="post">
+				                    		<input type="hidden" name="id" value="<c:out value='${trabajador.id}' />" />
 				                    		<button type="submit" class="btn btn-danger">Eliminar</button>
 				                    	</form> 
 			                    	</div>

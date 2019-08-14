@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="ISO-8859-1">
-	<title>Nuevo Trabajador</title>
+	<title>Editar Trabajador</title>
 	<link rel="stylesheet" href="./resources/css/bootstrap.min.css">
 </head>
 <body>
@@ -23,32 +24,33 @@
 	  </li>
 	</ul>
 	
-	<h1 align="center">Nuevo Trabajador</h1>
+	<h1 align="center">Editar trabajador '<c:out value='${trabajador.nombre}' />'</h1>
     <hr>
     
     <div class="container">
-    	<form action="ServletTrabajador?opcion=insert" method="post">
+    	<form action="ServletTrabajador?opcion=update" method="post">
+    		<input type="hidden" name="id" value="<c:out value='${trabajador.id}' />" />
 		  	<div class="form-group">
 			    <label>Nombre</label>
-			    <input type="text" class="form-control" name="nombre" placeholder="Introducir nombre">
+			    <input type="text" class="form-control" name="nombre" value="<c:out value='${trabajador.nombre}'/>" placeholder="Introducir nombre">
 		  	</div>
 		  	<div class="form-group">
 			    <label>Rol</label>
 			    <select class="form-control" name="rol">
-				  	<option value="1">Chofer</option>
-				  	<option value="2">Cargador</option>
-				  	<option value="3">Auxiliar</option>
+				  	<option value="1" <c:if test="${trabajador.rol==1}">selected</c:if>>Chofer</option>
+				  	<option value="2" <c:if test="${trabajador.rol==2}">selected</c:if>>Cargador</option>
+				  	<option value="3" <c:if test="${trabajador.rol==3}">selected</c:if>>Auxiliar</option>
 				</select>
 		  	</div>
 		  	<div class="form-group">
 			    <label>Tipo</label>
 			    <select class="form-control" name="tipo">
-				  	<option value="1">Interno</option>
-				  	<option value="2">Externo</option>
+				  	<option value="1" <c:if test="${trabajador.tipo==1}">selected</c:if>>Interno</option>
+				  	<option value="2" <c:if test="${trabajador.tipo==2}">selected</c:if>>Externo</option>
 				</select>
 		  	</div>
 		  	
-		  	<button type="submit" class="btn btn-primary">Guardar</button>
+		  	<button type="submit" class="btn btn-primary">Editar</button>
 		</form>
     </div>
 

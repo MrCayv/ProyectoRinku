@@ -53,10 +53,10 @@
 			                    <td><c:out value="${trabajador.tipo}" /></td>
 			                    <td>
 			                    	<div class="row">
-				                    	<form action="ServletTrabajador?opcion=edit&id=<c:out value='${user.id}'/>" method="post">
+				                    	<form action="ServletTrabajador?opcion=edit&id=<c:out value='${trabajador.id}'/>" method="post">
 				                    		<button type="submit" class="btn btn-warning">Editar</button>
 				                    	</form>
-				                    	<form action="ServletTrabajador?opcion=delete&id=<c:out value='${user.id}'/>" method="post">
+				                    	<form action="ServletTrabajador?opcion=delete&id=<c:out value='${trabajador.id}'/>" method="post">
 				                    		<button type="submit" class="btn btn-danger">Eliminar</button>
 				                    	</form> 
 			                    	</div>

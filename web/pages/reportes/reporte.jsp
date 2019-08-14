@@ -5,7 +5,7 @@
 <html>
 <head>
 	<meta charset="ISO-8859-1">
-	<title>Ver Trabajador</title>
+	<title>Reporte</title>
 	<link rel="stylesheet" href="./resources/css/bootstrap.min.css">
 </head>
 <body>
@@ -14,10 +14,10 @@
 	    <a class="nav-link" href="ServletMovimiento">Home</a>
 	  </li>
 	  <li class="nav-item">
-	    <a class="nav-link" href="ServletUsuario">Usuarios</a>
+	    <a class="nav-link active" href="ServletUsuario">Usuarios</a>
 	  </li>
 	  <li class="nav-item">
-	    <a class="nav-link active" href="ServletTrabajador">Trabajadores</a>
+	    <a class="nav-link" href="ServletTrabajador">Trabajadores</a>
 	  </li>
 	  <li class="nav-item">
 	    <a class="nav-link" href="ServletReporte">Reportes</a>
@@ -27,34 +27,11 @@
 	  </li>
 	</ul>
 	
-	<h1 align="center">Ver Trabajador '<c:out value="${trabajador.nombre}"/>'</h1>
-    <hr>
-    
-    <div class="container" style="background-color:lightblue">
-    	<h3 align="center">Empleado</h3>
-    	<table class="table table-sm">
-        	<thead>
-	                <th scope="col">#</th>
-	                <th scope="col">Nombre</th>
-	                <th scope="col">Rol</th>
-	                <th scope="col">Tipo</th>
-	            </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="row"><c:out value="${trabajador.id}" /></td>
-                    <td><c:out value="${trabajador.nombre}" /></td>
-                    <td><c:out value="${trabajador.rolString}" /></td>
-                    <td><c:out value="${trabajador.tipoString}" /></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+	<h1 align="center">Reporte de sueldo mensual</h1>
     <hr>
     
     <div class="container" >
-    	<form action="ServletTrabajador?opcion=show" method="post">
-    		<input type="hidden" name="id" value="<c:out value='${trabajador.id}' />" />
+    	<form action="ServletReporte?opcion=show" method="post">
     		<div class="form-row">
     			<div class="form-group col-3">
 	    			<select class="form-control" name="mes">
@@ -91,25 +68,45 @@
     	</form>
     </div>
     
-    <div class="container" >
+    <div  class="container">
 		<div class="form-group">
 	    	<div class="row">  
 		        <table class="table table-sm">
 		        	<thead>
 			            <tr>
 			                <th scope="col">#</th>
-			                <th scope="col">Fecha</th>
-			                <th scope="col">Trabajador</th>
+			                <th scope="col">Nombre</th>
+			                <th scope="col">Rol</th>
+			                <th scope="col">Tipo</th>
+			                <th scope="col">Dias</th>
 			                <th scope="col">Entregas</th>
+			                <th scope="col">Horas Cubiertas</th>
+			                <th scope="col">Importe Dias</th>
+			                <th scope="col">Importe Entregas</th>
+			                <th scope="col">Imoprte Bonos</th>
+			                <th scope="col">Subtotal</th>
+			                <th scope="col">ISR</th>
+			                <th scope="col">Total</th>
+			                <th scope="col">Vale de despensa</th>
 			            </tr>
 		            </thead>
 		            <tbody>
-			            <c:forEach var="movimiento" items="${listaMovimientos}">
+			            <c:forEach var="r" items="${reporte}">
 			                <tr>
-			                    <th scope="row"><c:out value="${movimiento.id}" /></td>
-			                    <td><c:out value="${movimiento.fecha}" /></td>
-			                    <td><c:out value="${movimiento.trabajador}" /></td>
-			                    <td><c:out value="${movimiento.cant_entregas}" /></td>
+			                    <th scope="row"><c:out value="${r.id_empleado}" /></td>
+			                    <td><c:out value="${r.nombre}" /></td>
+			                    <td><c:out value="${r.rol}" /></td>
+			                    <td><c:out value="${r.tipo}" /></td>
+			                    <td align="right"><c:out value="${r.dias}" /></td>
+			                    <td align="right"><c:out value="${r.entregas}" /></td>
+			                    <td align="right"><c:out value="${r.horas_cubrir}" /></td>
+			                    <td align="right"><c:out value="${r.importe_diasStr}" /></td>
+			                    <td align="right"><c:out value="${r.importe_entregasStr}" /></td>
+			                    <td align="right"><c:out value="${r.importe_bonosStr}" /></td>
+			                    <td align="right"><c:out value="${r.subtotalStr}" /></td>
+			                    <td align="right"><c:out value="${r.isrStr}" /></td>
+			                    <td align="right"><c:out value="${r.totalStr}" /></td>
+			                    <td align="right"><c:out value="${r.valeStr}" /></td>
 			                </tr>
 			            </c:forEach>
 		            </tbody>

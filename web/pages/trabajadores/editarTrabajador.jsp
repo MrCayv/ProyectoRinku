@@ -20,7 +20,7 @@
 	    <a class="nav-link active" href="ServletTrabajador">Trabajadores</a>
 	  </li>
 	  <li class="nav-item">
-	    <a class="nav-link" href="#">Reportes</a>
+	    <a class="nav-link" href="ServletReporte">Reportes</a>
 	  </li>
 	  <li class="nav-item">
 	    <a class="nav-link" href="ServletLogin">Salir</a>

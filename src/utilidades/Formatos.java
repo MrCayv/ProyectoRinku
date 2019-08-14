@@ -7,4 +7,9 @@ public class Formatos {
 		DecimalFormat df = new DecimalFormat(formato);
 		return df.format(valor);
 	}
+	
+	public static String formatoDouble(double valor, String formato) {
+		DecimalFormat df = new DecimalFormat(formato);
+		return df.format(valor);
+	}
 }

@@ -20,7 +20,7 @@
 	    <a class="nav-link" href="ServletTrabajador">Trabajadores</a>
 	  </li>
 	  <li class="nav-item">
-	    <a class="nav-link" href="#">Reportes</a>
+	    <a class="nav-link" href="ServletReporte">Reportes</a>
 	  </li>
 	  <li class="nav-item">
 	    <a class="nav-link" href="ServletLogin">Salir</a>
@@ -65,8 +65,8 @@
 			    <input type="number" class="form-control" name="cant_entregas" placeholder="Introducir entregas" required>
 		  	</div>
 		  	<div class="form-group">
-			    <input class="form-check-input" type="checkbox" value="1" id="defaultCheck1" name="cubrio_turno">
-			  	<label class="form-check-label" for="defaultCheck1">Cubrió turno</label>
+			    <label>Cubrió Turno</label>
+			    <input type="number" class="form-control" name="cubrio_turno" placeholder="Introducir horas" required>
 		  	</div>
 		  	
 		  	<button type="submit" class="btn btn-primary">Guardar</button>

@@ -13,6 +13,9 @@ public class Trabajador {
 	private Timestamp modificado;
 	private int status;
 	
+	private String rolString;
+	private String tipoString;
+	
 	public Trabajador() {}
 	
 	public Trabajador(String nombre, int rol, int tipo, int usu_creador, int usu_modificador, int status) {
@@ -95,6 +98,31 @@ public class Trabajador {
 
 	public void setStatus(int status) {
 		this.status = status;
+	}
+	
+	public String getRolString() {
+		return toStringRol();
+	}
+
+	public String getTipoString() {
+		return toStringTipo();
+	}
+
+	public String toStringRol() {
+		switch(rol) {
+			case 1: return "Chofer";
+			case 2: return "Cargador";
+			case 3: return "Auxiliar";
+			default: return "";
+		}
+	}
+	
+	public String toStringTipo() {
+		switch(tipo) {
+			case 1: return "Interno";
+			case 2: return "Externo";
+			default: return "";
+		}
 	}
 	
 }

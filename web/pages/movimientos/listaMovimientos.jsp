@@ -5,7 +5,7 @@
 <html>
 <head>
 	<meta charset="ISO-8859-1">
-	<title>Lista de Trabajadores</title>
+	<title>Lista de Movimientos</title>
 	<link rel="stylesheet" href="./resources/css/bootstrap.min.css">
 </head>
 <body>
@@ -24,45 +24,39 @@
 	  </li>
 	</ul>
 	
-	<h1 align="center">Administración de Trabajadores</h1>
+	<h1 align="center">Administración de Movimientos</h1>
     <hr>
     
     <div class="container" >
+    	<div class="row">  
+    		<form action="ServletTrabajador" method="post"><button type="submit" class="btn btn-primary">Nuevo</button></form>
+    	</div>
+    	<div class="mt-3"></div>
 		<div class="form-group">
-	    	<div class="row">  
-	    		<form action="ServletTrabajador?opcion=new" method="post"><button type="submit" class="btn btn-primary">Nuevo</button></form>
-	    	</div>
-	    	<div class="mt-3"></div>
 	    	<div class="row">  
 		        <table class="table table-sm">
 		        	<thead>
 			            <tr>
 			                <th scope="col">#</th>
-			                <th scope="col">Nombre</th>
-			                <th scope="col">Rol</th>
-			                <th scope="col">Tipo</th>
-			                <th class="text-center" scope="col">Opciones</th>
+			                <th scope="col">Fecha</th>
+			                <th scope="col">Trabajador</th>
+			                <th scope="col">Entregas</th>
+			                <th scope="col">Opciones</th>
 			            </tr>
 		            </thead>
 		            <tbody>
-			            <c:forEach var="trabajador" items="${listaTrabajadores}">
+			            <c:forEach var="movimiento" items="${listaMovimientos}">
 			                <tr>
-			                    <th scope="row"><c:out value="${trabajador.id}" /></td>
-			                    <td><c:out value="${trabajador.nombre}" /></td>
-			                    <td><c:out value="${trabajador.rolString}" /></td>
-			                    <td><c:out value="${trabajador.tipoString}" /></td>
+			                    <th scope="row"><c:out value="${movimiento.id}" /></td>
+			                    <td><c:out value="${movimiento.fecha}" /></td>
+			                    <td><c:out value="${movimiento.trabajador}" /></td>
+			                    <td align="center"><c:out value="${movimiento.cant_entregas}" /></td>
 			                    <td>
-			                    	<div class="row float-right">
-			                    		<form action="ServletTrabajador?opcion=show&id=<c:out value='${trabajador.id}'/>" method="post">
+			                    	<div class="row" align="center">
+				                    	<form action="ServletMovimiento?opcion=show&id=<c:out value='${movimiento.id}'/>" method="post">
 				                    		<button type="submit" class="btn btn-primary">Ver</button>
-				                    	</form> 
-			                    		<form action="ServletMovimiento?opcion=new&id=<c:out value='${trabajador.id}'/>" method="post">
-				                    		<button type="submit" class="btn btn-success">Movimiento</button>
-				                    	</form> 
-				                    	<form action="ServletTrabajador?opcion=edit&id=<c:out value='${trabajador.id}'/>" method="post">
-				                    		<button type="submit" class="btn btn-warning">Editar</button>
 				                    	</form>
-				                    	<form action="ServletTrabajador?opcion=delete&id=<c:out value='${trabajador.id}'/>" method="post">
+				                    	<form action="ServletMovimiento?opcion=delete&id=<c:out value='${movimiento.id}'/>" method="post">
 				                    		<button type="submit" class="btn btn-danger">Eliminar</button>
 				                    	</form> 
 			                    	</div>

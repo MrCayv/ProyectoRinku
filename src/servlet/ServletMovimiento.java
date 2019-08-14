@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -11,20 +12,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.MovimientoDAO;
 import dao.TrabajadorDAO;
+import model.Movimiento;
 import model.Trabajador;
+import utilidades.Fechas;
 
 /**
- * Servlet implementation class ServletUsuario
+ * Servlet implementation class ServletMovimiento
  */
-@WebServlet("/ServletTrabajador")
-public class ServletTrabajador extends HttpServlet {
+@WebServlet("/ServletMovimiento")
+public class ServletMovimiento extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ServletTrabajador() {
+    public ServletMovimiento() {
         super();
     }
 
@@ -62,7 +66,7 @@ public class ServletTrabajador extends HttpServlet {
                 ver(request, response);
                 break;
             default:
-            	listaTrabajadores(request, response);
+            	listaMovimientos(request, response);
                 break;
             }
         } catch (SQLException ex) {
@@ -70,60 +74,75 @@ public class ServletTrabajador extends HttpServlet {
         }
 	}
 	
-	private void listaTrabajadores(HttpServletRequest request, HttpServletResponse response)
+	private void listaMovimientos(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
-        List<Trabajador> listTrabajador = TrabajadorDAO.consultar();
-        request.setAttribute("listaTrabajadores", listTrabajador);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/trabajadores/listaTrabajadores.jsp");
+        List<Movimiento> listMovimiento = MovimientoDAO.consultar();
+        request.setAttribute("listaMovimientos", listMovimiento);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/movimientos/listaMovimientos.jsp");
         dispatcher.forward(request, response);
     }
  
     private void nuevo(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/trabajadores/nuevoTrabajador.jsp");
+    	int id = Integer.parseInt(request.getParameter("id"));
+        Trabajador trabajador = TrabajadorDAO.buscar(id);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/movimientos/nuevoMovimiento.jsp");
+        request.setAttribute("trabajador", trabajador);
         dispatcher.forward(request, response);
     }
  
     private void editar(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        Trabajador trabajador = TrabajadorDAO.buscar(id);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/trabajadores/editarTrabajador.jsp");
-        request.setAttribute("trabajador", trabajador);
+        Movimiento movimiento = MovimientoDAO.buscar(id);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/movimientos/editarMovimiento.jsp");
+        request.setAttribute("movimiento", movimiento);
         dispatcher.forward(request, response);
     }
  
     private void insertar(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
-        String nombre = request.getParameter("nombre");
-        int rol = Integer.parseInt(request.getParameter("rol"));
-        int tipo = Integer.parseInt(request.getParameter("tipo"));
+        int id_empleado = Integer.parseInt(request.getParameter("id_empleado"));
+        Date fecha = Fechas.stringToDateSql(request.getParameter("fecha"));
+        int cant_entregas = Integer.parseInt(request.getParameter("cant_entregas"));
+        int cubrio_turno = request.getParameter("cubrio_turno")==null?0:1;
  
-        Trabajador t = new Trabajador(nombre, rol, tipo, 1, -1, 1);
-        TrabajadorDAO.guardar(t);
-        response.sendRedirect("./ServletTrabajador");
+        Movimiento m = new Movimiento(id_empleado, fecha, cant_entregas, cubrio_turno, 1, -1, 1);
+        MovimientoDAO.guardar(m);
+        response.sendRedirect("./ServletMovimiento");
     }
  
     private void actualizar(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
     	int id = Integer.parseInt(request.getParameter("id"));
-    	String nombre = request.getParameter("nombre");
-        int rol = Integer.parseInt(request.getParameter("rol"));
-        int tipo = Integer.parseInt(request.getParameter("tipo"));
+    	int id_empleado = Integer.parseInt(request.getParameter("id_empleado"));
+        Date fecha = null;
+        int cant_entregas = Integer.parseInt(request.getParameter("cant_entregas"));
+        int cubrio_turno = Integer.parseInt(request.getParameter("cubrio_turno"));
  
-        Trabajador t = new Trabajador(nombre, rol, tipo, -1, 1, 1);
-        t.setId(id);
-        TrabajadorDAO.editar(t);
-        response.sendRedirect("./ServletTrabajador");
+        Movimiento m = new Movimiento(id_empleado, fecha, cant_entregas, cubrio_turno, 1, -1, 1);
+        m.setId(id);
+        MovimientoDAO.editar(m);
+        response.sendRedirect("./ServletMovimiento");
     }
  
     private void eliminar(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
  
-        TrabajadorDAO.eliminar(id, 1);
-        response.sendRedirect("./ServletTrabajador");
- 
+        MovimientoDAO.eliminar(id, 1);
+        response.sendRedirect("./ServletMovimiento");
+    }
+    
+    private void ver(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Movimiento movimiento = MovimientoDAO.buscar(id);
+        Trabajador trabajador = TrabajadorDAO.buscar(movimiento.getId_empleado());
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/movimientos/verMovimiento.jsp");
+        request.setAttribute("movimiento", movimiento);
+        request.setAttribute("trabajador", trabajador);
+        dispatcher.forward(request, response);
     }
 
 }

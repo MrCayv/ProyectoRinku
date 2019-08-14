@@ -53,8 +53,8 @@ public class ServletLogin extends HttpServlet {
 		sesion.setAttribute("empresa", "Rinku");
 		
 		if(!usuario.equals("") && !pass.equals("") && !usuario.equals("joel")) {
-			request.getRequestDispatcher("./pages/menu.jsp").forward(request, response);
-			
+			//request.getRequestDispatcher("./pages/menu.jsp").forward(request, response);
+			response.sendRedirect("./ServletMovimiento");
 			// Recuperar el escritor
 			/*PrintWriter escritor = response.getWriter();
 			

@@ -10,13 +10,16 @@
 <body>
 	<ul class="nav nav-tabs">
 	  <li class="nav-item">
-	    <a class="nav-link active" href="ServletMovimiento">Home</a>
+	    <a class="nav-link" href="ServletMovimiento">Home</a>
 	  </li>
 	  <li class="nav-item">
-	    <a class="nav-link" href="ServletUsuario">Usuarios</a>
+	    <a class="nav-link active" href="ServletUsuario">Usuarios</a>
 	  </li>
 	  <li class="nav-item">
 	    <a class="nav-link" href="ServletTrabajador">Trabajadores</a>
+	  </li>
+	  <li class="nav-item">
+	    <a class="nav-link" href="#">Reportes</a>
 	  </li>
 	  <li class="nav-item">
 	    <a class="nav-link" href="ServletLogin">Salir</a>

@@ -11,13 +11,16 @@
 <body>
 	<ul class="nav nav-tabs">
 	  <li class="nav-item">
-	    <a class="nav-link active" href="ServletMovimiento">Home</a>
+	    <a class="nav-link" href="ServletMovimiento">Home</a>
 	  </li>
 	  <li class="nav-item">
 	    <a class="nav-link" href="ServletUsuario">Usuarios</a>
 	  </li>
 	  <li class="nav-item">
-	    <a class="nav-link" href="ServletTrabajador">Trabajadores</a>
+	    <a class="nav-link active" href="ServletTrabajador">Trabajadores</a>
+	  </li>
+	  <li class="nav-item">
+	    <a class="nav-link" href="#">Reportes</a>
 	  </li>
 	  <li class="nav-item">
 	    <a class="nav-link" href="ServletLogin">Salir</a>
@@ -50,34 +53,35 @@
     <hr>
     
     <div class="container" >
-    	<form action="">
+    	<form action="ServletTrabajador?opcion=show" method="post">
+    		<input type="hidden" name="id" value="<c:out value='${trabajador.id}' />" />
     		<div class="form-row">
     			<div class="form-group col-3">
 	    			<select class="form-control" name="mes">
-					  	<option value="1">Enero</option>
-					  	<option value="2">Febrero</option>
-					  	<option value="3">Marzo</option>
-					  	<option value="4">Abril</option>
-					  	<option value="5">Mayo</option>
-					  	<option value="6">Junio</option>
-					  	<option value="7">Julio</option>
-					  	<option value="8">Agosto</option>
-					  	<option value="9">Septiembre</option>
-					  	<option value="10">Octubre</option>
-					  	<option value="11">Noviembre</option>
-					  	<option value="12">Diciembreo</option>
+					  	<option value="1" <c:if test="${mes==1}">selected</c:if>>Enero</option>
+					  	<option value="2" <c:if test="${mes==2}">selected</c:if>>Febrero</option>
+					  	<option value="3" <c:if test="${mes==3}">selected</c:if>>Marzo</option>
+					  	<option value="4" <c:if test="${mes==4}">selected</c:if>>Abril</option>
+					  	<option value="5" <c:if test="${mes==5}">selected</c:if>>Mayo</option>
+					  	<option value="6" <c:if test="${mes==6}">selected</c:if>>Junio</option>
+					  	<option value="7" <c:if test="${mes==7}">selected</c:if>>Julio</option>
+					  	<option value="8" <c:if test="${mes==8}">selected</c:if>>Agosto</option>
+					  	<option value="9" <c:if test="${mes==9}">selected</c:if>>Septiembre</option>
+					  	<option value="10" <c:if test="${mes==10}">selected</c:if>>Octubre</option>
+					  	<option value="11" <c:if test="${mes==11}">selected</c:if>>Noviembre</option>
+					  	<option value="12" <c:if test="${mes==12}">selected</c:if>>Diciembreo</option>
 					</select>
 				</div>
 				<div class="form-group col-3">
 	    			<select class="form-control" name="year">
-					  	<option value="2018">2018</option>
-					  	<option value="2019">2019</option>
-					  	<option value="2020">2020</option>
-					  	<option value="2021">2021</option>
-					  	<option value="2022">2022</option>
-					  	<option value="2023">2023</option>
-					  	<option value="2024">2024</option>
-					  	<option value="2025">2025</option>
+					  	<option value="2018" <c:if test="${year==2018}">selected</c:if>>2018</option>
+					  	<option value="2019" <c:if test="${year==2019}">selected</c:if>>2019</option>
+					  	<option value="2020" <c:if test="${year==2020}">selected</c:if>>2020</option>
+					  	<option value="2021" <c:if test="${year==2021}">selected</c:if>>2021</option>
+					  	<option value="2022" <c:if test="${year==2022}">selected</c:if>>2022</option>
+					  	<option value="2023" <c:if test="${year==2023}">selected</c:if>>2023</option>
+					  	<option value="2024" <c:if test="${year==2024}">selected</c:if>>2024</option>
+					  	<option value="2025" <c:if test="${year==2025}">selected</c:if>>2025</option>
 					</select>
 				</div>
 				<div class="form-group col-3">

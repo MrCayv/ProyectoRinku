@@ -130,13 +130,26 @@ public class ServletTrabajador extends HttpServlet {
     
     private void ver(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, ServletException, IOException {
+    	String mes = request.getParameter("mes");
+    	String year = request.getParameter("year");
         int id = Integer.parseInt(request.getParameter("id"));
+        
         Trabajador trabajador = TrabajadorDAO.buscar(id);
         Date fecha = new Date();
+        if(mes != null && year != null) {
+        	fecha.setMonth(Integer.parseInt(mes)-1);
+        	fecha.setYear(Integer.parseInt(year)-1900);
+        } else {
+        	mes = (fecha.getMonth()+1) + "";
+        	year = (fecha.getYear()+1900) + "";
+        }
+        
         List<Movimiento> listaMovimientos = MovimientoDAO.consultar(trabajador.getId(), fecha.getMonth()+1, fecha.getYear()+1900);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/trabajadores/verTrabajador.jsp");
         request.setAttribute("trabajador", trabajador);
         request.setAttribute("listaMovimientos", listaMovimientos);
+        request.setAttribute("mes", mes);
+        request.setAttribute("year", year);
         dispatcher.forward(request, response);
     }
 
